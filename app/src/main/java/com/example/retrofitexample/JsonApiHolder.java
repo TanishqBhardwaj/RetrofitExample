@@ -12,4 +12,7 @@ public interface JsonApiHolder {
 
     @GET("/posts/{id}")
     Call<PostModel> getPostAtId(@Path("id") String mId);
+
+    @GET("/covid19-in/stats/latest")
+    Call<LatestCasesModel> getLatestCases();
 }
