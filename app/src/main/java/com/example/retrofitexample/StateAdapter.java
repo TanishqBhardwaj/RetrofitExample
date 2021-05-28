@@ -14,9 +14,18 @@ import java.util.List;
 public class StateAdapter extends RecyclerView.Adapter<StateAdapter.StateViewHolder>{
 
     private List<RegionalData> stateList;
+    private OnItemClickListener mListener;
 
     public StateAdapter(List<RegionalData> tempList) {
         stateList = new ArrayList<>(tempList);
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick();
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
     }
 
     @NonNull
@@ -60,6 +69,15 @@ public class StateAdapter extends RecyclerView.Adapter<StateAdapter.StateViewHol
             textViewDeath = itemView.findViewById(R.id.textViewDeath);
             textViewActive = itemView.findViewById(R.id.textViewActiveCases);
             textViewState = itemView.findViewById(R.id.textViewState);
+
+            itemView.setOnClickListener(view -> {
+                if(mListener!=null) {
+                    int pos =getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION) {
+                        mListener.onItemClick();
+                    }
+                }
+            });
         }
     }
 }

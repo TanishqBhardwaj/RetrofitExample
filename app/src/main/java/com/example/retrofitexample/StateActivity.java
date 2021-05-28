@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -18,7 +19,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class StateActivity extends AppCompatActivity {
+public class StateActivity extends AppCompatActivity{
 
     private RecyclerView recyclerView;
     private JsonApiHolder jsonApiHolder;
@@ -39,15 +40,9 @@ public class StateActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
-//        List<String> stateList = new ArrayList<>();
-//        stateList.add("Uttar Pradesh");
-//        stateList.add("Delhi");
-//        stateList.add("Rajasthan");
-//        stateList.add("Maharashtra");
-//        stateList.add("Karnataka");
-//
-//        StateAdapter stateAdapter = new StateAdapter(stateList);
-//        recyclerView.setAdapter(stateAdapter);
+        StateAdapter stateAdapter = new StateAdapter(stateWiseCaseList);
+        recyclerView.setAdapter(stateAdapter);
+
     }
 
     private void getLatestCases() {
@@ -61,6 +56,11 @@ public class StateActivity extends AppCompatActivity {
 
                             StateAdapter stateAdapter = new StateAdapter(stateWiseCaseList);
                             recyclerView.setAdapter(stateAdapter);
+                            stateAdapter.setOnItemClickListener(() -> {
+                                Intent intent = new Intent(StateActivity.this,
+                                        MainActivity.class);
+                                startActivity(intent);
+                            });
                         }
                         else {
                             Toast.makeText(StateActivity.this, "Something Went Wrong!",
