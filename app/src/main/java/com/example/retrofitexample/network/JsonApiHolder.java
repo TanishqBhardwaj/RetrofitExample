@@ -1,4 +1,7 @@
-package com.example.retrofitexample;
+package com.example.retrofitexample.network;
+
+import com.example.retrofitexample.model.LatestCasesModel;
+import com.example.retrofitexample.model.PostModel;
 
 import java.util.List;
 import retrofit2.Call;

@@ -1,4 +1,4 @@
-package com.example.retrofitexample;
+package com.example.retrofitexample.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,6 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
+
+import com.example.retrofitexample.network.JsonApiHolder;
+import com.example.retrofitexample.model.LatestCasesModel;
+import com.example.retrofitexample.R;
+import com.example.retrofitexample.model.RegionalData;
+import com.example.retrofitexample.adapter.StateAdapter;
+import com.example.retrofitexample.network.RetrofitClass;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +39,7 @@ public class StateActivity extends AppCompatActivity{
 
         setView();
 
-        jsonApiHolder = getRetrofitInstance().create(JsonApiHolder.class);
+        jsonApiHolder = RetrofitClass.getRetrofitInstance().create(JsonApiHolder.class);
         getLatestCases();
     }
 
@@ -73,20 +80,5 @@ public class StateActivity extends AppCompatActivity{
                         t.printStackTrace();
                     }
                 });
-    }
-
-    private Retrofit getRetrofitInstance() {
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build();
-
-        return new Retrofit.Builder()
-                .baseUrl("https://api.rootnet.in/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
-                .build();
     }
 }

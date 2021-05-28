@@ -1,4 +1,4 @@
-package com.example.retrofitexample;
+package com.example.retrofitexample.adapter;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.retrofitexample.R;
+import com.example.retrofitexample.model.RegionalData;
 
 import java.util.ArrayList;
 import java.util.List;

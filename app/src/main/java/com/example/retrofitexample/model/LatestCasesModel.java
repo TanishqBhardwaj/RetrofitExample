@@ -1,4 +1,6 @@
-package com.example.retrofitexample;
+package com.example.retrofitexample.model;
+
+import com.example.retrofitexample.model.Data;
 
 public class LatestCasesModel {
 

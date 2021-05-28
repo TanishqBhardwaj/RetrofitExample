@@ -1,4 +1,4 @@
-package com.example.retrofitexample;
+package com.example.retrofitexample.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,10 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.retrofitexample.network.JsonApiHolder;
+import com.example.retrofitexample.model.PostModel;
+import com.example.retrofitexample.R;
 
 import java.util.List;
 
