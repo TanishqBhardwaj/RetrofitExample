@@ -14,12 +14,12 @@ import com.example.retrofitexample.model.RegionalData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StateAdapter extends RecyclerView.Adapter<StateAdapter.StateViewHolder>{
+public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.StateViewHolder>{
 
     private List<RegionalData> stateList;
     private OnItemClickListener mListener;
 
-    public StateAdapter(List<RegionalData> tempList) {
+    public DetailAdapter(List<RegionalData> tempList) {
         stateList = new ArrayList<>(tempList);
     }
 
@@ -34,7 +34,7 @@ public class StateAdapter extends RecyclerView.Adapter<StateAdapter.StateViewHol
     @NonNull
     @Override
     public StateViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_state, parent,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_view_detail, parent,
                 false);
         return new StateViewHolder(view);
     }

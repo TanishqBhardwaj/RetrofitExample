@@ -15,6 +15,7 @@ import com.example.retrofitexample.network.JsonApiHolder;
 import com.example.retrofitexample.model.PostModel;
 import com.example.retrofitexample.R;
 import com.example.retrofitexample.network.RetrofitClass;
+import com.example.retrofitexample.utils.Constants;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        jsonApiHolder = RetrofitClass.getRetrofitInstance().create(JsonApiHolder.class);
+        jsonApiHolder = RetrofitClass.getRetrofitInstance(Constants.BASE_LOCAL_URL).create(JsonApiHolder.class);
 
         setView();
         setClickListeners();

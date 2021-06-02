@@ -1,6 +1,7 @@
 package com.example.retrofitexample.local;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "state_table")
@@ -15,6 +16,7 @@ public class StateEntity {
     private int deaths;
     private int active;
 
+    @Ignore
     public StateEntity() {}
 
     public StateEntity(String stateName, int totalCase, int recovered, int deaths, int active) {

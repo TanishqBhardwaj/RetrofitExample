@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity"
-    android:background="#23C4ED">
+    tools:context=".activity.MainActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -15,6 +14,12 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_app_bg"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
@@ -48,13 +53,13 @@
 
                         <ImageView
                             android:id="@+id/imageView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/corona_image" />
+                            app:srcCompat="@drawable/ic_confirmed_cases" />
 
                         <TextView
                             android:id="@+id/textViewConfirmedCases"
@@ -104,13 +109,13 @@
 
                         <ImageView
                             android:id="@+id/imageView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/doctors_image" />
+                            app:srcCompat="@drawable/ic_active_cases" />
 
                         <TextView
                             android:id="@+id/textViewActiveCasesMain"
@@ -159,13 +164,13 @@
 
                         <ImageView
                             android:id="@+id/imageView3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="16dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/recovery_image" />
+                            app:srcCompat="@drawable/ic_cardiology" />
 
                         <TextView
                             android:id="@+id/textViewDischargedCases"
@@ -222,7 +227,7 @@
                             android:scaleType="centerCrop"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/death_image" />
+                            app:srcCompat="@drawable/ic_grave" />
 
                         <TextView
                             android:id="@+id/textViewDeathCases"

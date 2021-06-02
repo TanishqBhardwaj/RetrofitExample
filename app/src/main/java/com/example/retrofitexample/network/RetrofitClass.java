@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClass {
 
-    public static Retrofit getRetrofitInstance() {
+    public static Retrofit getRetrofitInstance(String baseURL) {
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -17,7 +17,7 @@ public class RetrofitClass {
                 .build();
 
         return new retrofit2.Retrofit.Builder()
-                .baseUrl("https://api.rootnet.in/")
+                .baseUrl(baseURL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(okHttpClient)
                 .build();

@@ -15,21 +15,18 @@ import com.example.retrofitexample.network.JsonApiHolder;
 import com.example.retrofitexample.model.LatestCasesModel;
 import com.example.retrofitexample.R;
 import com.example.retrofitexample.model.RegionalData;
-import com.example.retrofitexample.adapter.StateAdapter;
+import com.example.retrofitexample.adapter.DetailAdapter;
 import com.example.retrofitexample.network.RetrofitClass;
+import com.example.retrofitexample.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-public class StateActivity extends AppCompatActivity{
+public class DetailActivity extends AppCompatActivity{
 
     private RecyclerView recyclerView;
     private JsonApiHolder jsonApiHolder;
@@ -41,11 +38,11 @@ public class StateActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_state);
+        setContentView(R.layout.activity_detail);
 
         setView();
 
-        jsonApiHolder = RetrofitClass.getRetrofitInstance().create(JsonApiHolder.class);
+        jsonApiHolder = RetrofitClass.getRetrofitInstance(Constants.BASE_LOCAL_URL).create(JsonApiHolder.class);
         stateDatabase = StateDatabase.getInstance(this);
         stateDAO = stateDatabase.stateDAO();
         getLatestCases();
@@ -55,8 +52,8 @@ public class StateActivity extends AppCompatActivity{
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
-        StateAdapter stateAdapter = new StateAdapter(stateWiseCaseList);
-        recyclerView.setAdapter(stateAdapter);
+        DetailAdapter detailAdapter = new DetailAdapter(stateWiseCaseList);
+        recyclerView.setAdapter(detailAdapter);
 
     }
 
@@ -69,17 +66,17 @@ public class StateActivity extends AppCompatActivity{
                         if(response.isSuccessful()) {
                             stateWiseCaseList.addAll(response.body().getData().getRegional());
 
-                            StateAdapter stateAdapter = new StateAdapter(stateWiseCaseList);
-                            recyclerView.setAdapter(stateAdapter);
-                            stateAdapter.setOnItemClickListener(() -> {
-                                Intent intent = new Intent(StateActivity.this,
+                            DetailAdapter detailAdapter = new DetailAdapter(stateWiseCaseList);
+                            recyclerView.setAdapter(detailAdapter);
+                            detailAdapter.setOnItemClickListener(() -> {
+                                Intent intent = new Intent(DetailActivity.this,
                                         MainActivity.class);
                                 startActivity(intent);
                             });
                             saveInDb();
                         }
                         else {
-                            Toast.makeText(StateActivity.this, "Something Went Wrong!",
+                            Toast.makeText(DetailActivity.this, "Something Went Wrong!",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
