@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.retrofitexample.local.StateDAO;
+import com.example.retrofitexample.local.StateDatabase;
+import com.example.retrofitexample.local.StateEntity;
 import com.example.retrofitexample.network.JsonApiHolder;
 import com.example.retrofitexample.model.LatestCasesModel;
 import com.example.retrofitexample.R;
@@ -32,6 +35,9 @@ public class StateActivity extends AppCompatActivity{
     private JsonApiHolder jsonApiHolder;
     private List<RegionalData> stateWiseCaseList = new ArrayList<>();
 
+    private StateDatabase stateDatabase;
+    private StateDAO stateDAO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +46,8 @@ public class StateActivity extends AppCompatActivity{
         setView();
 
         jsonApiHolder = RetrofitClass.getRetrofitInstance().create(JsonApiHolder.class);
+        stateDatabase = StateDatabase.getInstance(this);
+        stateDAO = stateDatabase.stateDAO();
         getLatestCases();
     }
 
@@ -68,6 +76,7 @@ public class StateActivity extends AppCompatActivity{
                                         MainActivity.class);
                                 startActivity(intent);
                             });
+                            saveInDb();
                         }
                         else {
                             Toast.makeText(StateActivity.this, "Something Went Wrong!",
@@ -80,5 +89,17 @@ public class StateActivity extends AppCompatActivity{
                         t.printStackTrace();
                     }
                 });
+    }
+
+    private void saveInDb() {
+        for(RegionalData regionalData : stateWiseCaseList) {
+            StateEntity stateEntity = new StateEntity(regionalData.getStateName(),
+                    regionalData.getTotalConfirmed(),
+                    regionalData.getDischarged(),
+                    regionalData.getDeaths(),
+                    regionalData.getTotalConfirmed() - regionalData.getDischarged() - regionalData.getDeaths());
+
+            stateDAO.insert(stateEntity);
+        }
     }
 }

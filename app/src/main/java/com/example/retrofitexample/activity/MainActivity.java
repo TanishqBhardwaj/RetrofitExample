@@ -7,10 +7,15 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.retrofitexample.model.LatestCasesModel;
+import com.example.retrofitexample.model.Summary;
 import com.example.retrofitexample.network.JsonApiHolder;
 import com.example.retrofitexample.model.PostModel;
 import com.example.retrofitexample.R;
+import com.example.retrofitexample.network.RetrofitClass;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.List;
 
@@ -25,93 +30,66 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private JsonApiHolder jsonApiHolder;
-    private TextView textViewTitle;
-    private EditText editTextId;
-    private Button buttonFetch;
+    private TabLayout tabLayout;
+    private TextView textViewConfirmedCases;
+    private TextView textViewActiveCases;
+    private TextView textViewDischargedCases;
+    private TextView textViewDeaths;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        jsonApiHolder = getRetrofitInstance().create(JsonApiHolder.class);
+        jsonApiHolder = RetrofitClass.getRetrofitInstance().create(JsonApiHolder.class);
 
         setView();
         setClickListeners();
-//        getPosts();
-//        getPostById("5");
+        fetchData();
     }
 
     private void setView() {
-        textViewTitle = findViewById(R.id.textView2);
-        editTextId = findViewById(R.id.editTextNumber);
-        buttonFetch = findViewById(R.id.button);
+        tabLayout = findViewById(R.id.tabLayout);
+        textViewConfirmedCases = findViewById(R.id.textViewConfirmedCases);
+        textViewActiveCases = findViewById(R.id.textViewActiveCasesMain);
+        textViewDischargedCases = findViewById(R.id.textViewDischargedCases);
+        textViewDeaths = findViewById(R.id.textViewDeathCases);
+
+        tabLayout.addTab(tabLayout.newTab().setText("Global"));
+        tabLayout.addTab(tabLayout.newTab().setText("India"));
     }
 
     private void setClickListeners() {
-        buttonFetch.setOnClickListener(view -> {
-            if(editTextId.getText().toString().trim().length() > 0) {
-                getPostById(editTextId.getText().toString().trim());
-            }
-        });
+
     }
 
-    private void getPosts() {
-        Call<List<PostModel>> postList = jsonApiHolder.getPosts();
-        postList.enqueue(new Callback<List<PostModel>>() {
+    private void fetchData() {
+        Call<LatestCasesModel> latestCasesModelCall = jsonApiHolder.getLatestCases();
+        latestCasesModelCall.enqueue(new Callback<LatestCasesModel>() {
             @Override
-            public void onResponse(Call<List<PostModel>> call, Response<List<PostModel>> response) {
+            public void onResponse(Call<LatestCasesModel> call, Response<LatestCasesModel> response) {
                 if(response.isSuccessful()) {
-                    List<PostModel> postModelList = response.body();
-                    for(PostModel postModel : postModelList) {
-//                        Log.d("TAG", "onResponse: " +  postModel.getName());
-                    }
+                    setTextView(response.body().getData().getSummary());
                 }
                 else {
-                    Log.e("TAG", "onResponse: " + response.code());
+                    Toast.makeText(MainActivity.this, "Something went wrong!",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<PostModel>> call, Throwable t) {
+            public void onFailure(Call<LatestCasesModel> call, Throwable t) {
                 t.printStackTrace();
             }
         });
     }
 
-    private void getPostById(String id) {
-        Call<PostModel> postAtId = jsonApiHolder.getPostAtId(id);
-        postAtId.enqueue(new Callback<PostModel>() {
-            @Override
-            public void onResponse(Call<PostModel> call, Response<PostModel> response) {
-                if(response.isSuccessful()) {
-                    assert response.body() != null;
-                    textViewTitle.setText(response.body().getName());
-                }
-                else {
-                    Log.e("TAG", "onResponse: " + response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PostModel> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
-    }
-
-    private Retrofit getRetrofitInstance() {
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
-                .build();
-
-        return new Retrofit.Builder()
-                .baseUrl("https://jsonplaceholder.typicode.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
-                .build();
+    private void setTextView(Summary summary) {
+        textViewConfirmedCases.setText(String.valueOf(summary.getTotal()));
+        textViewActiveCases.setText(String.valueOf(
+                summary.getTotal() - summary.getDischarged() - summary.getDeaths()
+        ));
+        textViewDischargedCases.setText(String.valueOf(summary.getDischarged()));
+        textViewDeaths.setText(String.valueOf(summary.getDeaths()));
     }
 }

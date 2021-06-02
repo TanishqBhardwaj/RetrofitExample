@@ -4,12 +4,23 @@ import java.util.List;
 
 public class Data {
 
+    private Summary summary;
+
     private List<RegionalData> regional;
 
     public Data() {}
 
-    public Data(List<RegionalData> regional) {
+    public Data(Summary summary, List<RegionalData> regional) {
+        this.summary = summary;
         this.regional = regional;
+    }
+
+    public Summary getSummary() {
+        return summary;
+    }
+
+    public void setSummary(Summary summary) {
+        this.summary = summary;
     }
 
     public List<RegionalData> getRegional() {

@@ -16,6 +16,7 @@ public abstract class StateDatabase extends RoomDatabase {
         if(instance == null) {
             instance = Room.databaseBuilder(context, StateDatabase.class, "state_database")
                     .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
                     .build();
         }
         return instance;
