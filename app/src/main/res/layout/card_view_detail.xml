@@ -4,8 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:layout_marginBottom="16dp">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    app:cardCornerRadius="12sp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -16,63 +19,161 @@
             android:id="@+id/textViewTotalCases"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="32dp"
-            android:text="Total Cases"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:text="000"
+            android:textColor="#FFD83B"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/textViewRecoveredCases"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textViewActiveCases"
+            app:layout_constraintStart_toEndOf="@+id/textViewName"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewRecoveredCases"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="Recovered Cases"
+            android:text="000"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/textViewDeath"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTotalCases" />
+            android:textColor="#54ADFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textViewDeath"
+            app:layout_constraintStart_toEndOf="@+id/textViewActiveCases"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewDeath"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="Number of Deaths"
+            android:layout_marginEnd="8dp"
+            android:text="000"
+            android:textColor="#7B7B7B"
             android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/textViewActiveCases"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewRecoveredCases" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewRecoveredCases"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewActiveCases"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginBottom="16dp"
-            android:text="Active Cases"
+            android:text="000"
             android:textSize="16sp"
+            android:textColor="#FF8989"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewDeath" />
+            app:layout_constraintEnd_toStartOf="@+id/textViewRecoveredCases"
+            app:layout_constraintStart_toEndOf="@+id/textViewTotalCases"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textViewState"
-            android:layout_width="0dp"
+            android:id="@+id/textViewName"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
             android:fontFamily="sans-serif-black"
             android:text="State Name"
-            android:textSize="20sp"
             android:textAlignment="center"
-            android:maxLines="1"
-            android:ellipsize="end"
-            app:layout_constraintBottom_toTopOf="@+id/textViewTotalCases"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutTotalNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/textViewTotalCases"
+            app:layout_constraintEnd_toEndOf="@+id/textViewTotalCases"
+            app:layout_constraintStart_toStartOf="@+id/textViewTotalCases"
+            android:layout_marginBottom="2dp"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_trend_arrow_yellow_b3" />
+
+            <TextView
+                android:id="@+id/text_view_total_new"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#FFD83B"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageView11"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutRecoveredNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/textViewRecoveredCases"
+            app:layout_constraintEnd_toEndOf="@+id/textViewRecoveredCases"
+            app:layout_constraintStart_toStartOf="@+id/textViewRecoveredCases"
+            android:layout_marginBottom="2dp"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_trend_arrow_blue_b3" />
+
+            <TextView
+                android:id="@+id/text_view_recovered_new"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#54ADFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageView12"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayoutDeathNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/textViewDeath"
+            app:layout_constraintEnd_toEndOf="@+id/textViewDeath"
+            app:layout_constraintStart_toStartOf="@+id/textViewDeath"
+            android:layout_marginBottom="2dp"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_trend_arrow_gray_b3" />
+
+            <TextView
+                android:id="@+id/text_view_death_new"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="#7B7B7B"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imageView13"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
