@@ -6,6 +6,7 @@ import java.util.List;
 
 public class GlobalCasesModel {
 
+    @SerializedName("Global")
     private Global global;
 
     @SerializedName("Countries")

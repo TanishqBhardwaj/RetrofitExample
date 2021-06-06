@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textViewNameCard"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:text="TextView"
+        android:textSize="18sp"
+        android:textColor="#383CC1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewActive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="18sp"
+        android:textColor="#FF8989"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewNameCard"
+        app:layout_constraintEnd_toStartOf="@+id/textViewRecovered"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewNameCard"
+        app:layout_constraintTop_toTopOf="@+id/textViewNameCard" />
+
+    <TextView
+        android:id="@+id/textViewRecovered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="18sp"
+        android:textColor="#54ADFF"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewActive"
+        app:layout_constraintEnd_toStartOf="@+id/textViewDeathCard"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewActive"
+        app:layout_constraintTop_toTopOf="@+id/textViewActive" />
+
+    <TextView
+        android:id="@+id/textViewDeathCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="18sp"
+        android:textColor="#7B7B7B"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewRecovered"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewRecovered"
+        app:layout_constraintTop_toTopOf="@+id/textViewRecovered" />
+</androidx.constraintlayout.widget.ConstraintLayout>

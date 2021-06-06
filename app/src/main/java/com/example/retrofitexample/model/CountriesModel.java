@@ -2,6 +2,8 @@ package com.example.retrofitexample.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Comparator;
+
 public class CountriesModel {
 
     @SerializedName("Country")
@@ -94,4 +96,7 @@ public class CountriesModel {
     public void setTotalRecoveredCases(int totalRecoveredCases) {
         this.totalRecoveredCases = totalRecoveredCases;
     }
+
+    public static Comparator<CountriesModel> countriesModelComparator = (countriesModel, t1)
+            -> t1.getTotalConfirmedCases() - countriesModel.getTotalConfirmedCases();
 }

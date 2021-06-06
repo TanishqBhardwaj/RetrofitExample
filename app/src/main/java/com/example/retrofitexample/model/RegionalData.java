@@ -2,6 +2,8 @@ package com.example.retrofitexample.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Comparator;
+
 public class RegionalData {
 
     @SerializedName("loc")
@@ -71,4 +73,7 @@ public class RegionalData {
     public void setTotalConfirmed(int totalConfirmed) {
         this.totalConfirmed = totalConfirmed;
     }
+
+    public static Comparator<RegionalData> regionalDataComparator = (regionalData, t1)
+            -> t1.getConfirmedCasesIndian() - regionalData.getConfirmedCasesIndian();
 }

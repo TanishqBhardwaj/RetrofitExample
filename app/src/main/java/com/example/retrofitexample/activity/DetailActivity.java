@@ -6,6 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.retrofitexample.local.StateDAO;
@@ -31,6 +36,11 @@ import retrofit2.Response;
 public class DetailActivity extends AppCompatActivity{
 
     private RecyclerView recyclerView;
+    private TextView textViewTitle;
+    private TextView textViewTime;
+    private ProgressBar progressBar;
+    private ImageView imageViewBack;
+
     private JsonApiHolder jsonApiHolder;
     private List<RegionalData> stateWiseCaseList = new ArrayList<>();
     private List<CountriesModel> countriesWiseCaseList = new ArrayList<>();
@@ -44,23 +54,36 @@ public class DetailActivity extends AppCompatActivity{
         setContentView(R.layout.activity_detail);
 
         setView();
+        setListeners();
 
         stateDatabase = StateDatabase.getInstance(this);
         stateDAO = stateDatabase.stateDAO();
-        getLatestStateCases();
-//        getLatestCountryCases();
+//        getLatestStateCases();
+        getLatestCountryCases();
     }
 
     private void setView() {
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false));
+        textViewTitle = findViewById(R.id.textViewTitleDetail);
+        textViewTime = findViewById(R.id.textViewTimeDetail);
+        progressBar = findViewById(R.id.progressBar);
+        imageViewBack = findViewById(R.id.imageViewBack);
 //        DetailAdapter detailAdapter = new DetailAdapter(stateWiseCaseList);
 //        recyclerView.setAdapter(detailAdapter);
 
     }
 
+    private void setListeners() {
+        imageViewBack.setOnClickListener(view -> {
+            finish();
+        });
+    }
+
     private void getLatestStateCases() {
+
+        textViewTitle.setText("State Data (All)");
         jsonApiHolder = RetrofitClass.getRetrofitInstance(Constants.BASE_LOCAL_URL).create(JsonApiHolder.class);
         Call<LatestCasesModel> latestCasesModel = jsonApiHolder.getLatestCases();
 
@@ -70,13 +93,9 @@ public class DetailActivity extends AppCompatActivity{
                         if(response.isSuccessful()) {
                             stateWiseCaseList.addAll(response.body().getData().getRegional());
 
+                            progressBar.setVisibility(View.GONE);
                             DetailAdapter detailAdapter = new DetailAdapter(stateWiseCaseList);
                             recyclerView.setAdapter(detailAdapter);
-                            detailAdapter.setOnItemClickListener(() -> {
-                                Intent intent = new Intent(DetailActivity.this,
-                                        MainActivity.class);
-                                startActivity(intent);
-                            });
                             saveInDb();
                         }
                         else {
@@ -93,6 +112,8 @@ public class DetailActivity extends AppCompatActivity{
     }
 
     private void getLatestCountryCases() {
+
+        textViewTitle.setText("Countries Data (All)");
         jsonApiHolder = RetrofitClass.getRetrofitInstance(Constants.BASE_GLOBAL_URL).create(JsonApiHolder.class);
         Call<GlobalCasesModel> globalCasesModelCall = jsonApiHolder.getGlobalCases();
 
@@ -100,7 +121,13 @@ public class DetailActivity extends AppCompatActivity{
             @Override
             public void onResponse(Call<GlobalCasesModel> call, Response<GlobalCasesModel> response) {
                 if(response.isSuccessful()) {
-                    countriesWiseCaseList.addAll(response.body().getCountries());
+                    GlobalCasesModel globalCasesModel = response.body();
+                    assert globalCasesModel != null;
+                    countriesWiseCaseList.addAll(globalCasesModel.getCountries());
+
+                    progressBar.setVisibility(View.GONE);
+                    textViewTime.setText("Last updated at " +
+                            globalCasesModel.getGlobal().getDate().substring(11, 16));
 
                     DetailAdapter detailAdapter = new DetailAdapter(countriesWiseCaseList, true);
                     recyclerView.setAdapter(detailAdapter);

@@ -63,7 +63,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.StateViewH
                             - countriesModel.getTotalRecoveredCases()
                             - countriesModel.getTotalDeathsCases()));
 
-            holder.textViewTotalNew.setText(String.valueOf(countriesModel.getTotalConfirmedCases()));
+            holder.textViewTotalNew.setText(String.valueOf(countriesModel.getNewConfirmedCases()));
             holder.textViewRecoveredNew.setText(String.valueOf(countriesModel.getNewRecoveredCases()));
             holder.textViewDeathNew.setText(String.valueOf(countriesModel.getNewDeathsCases()));
         }
